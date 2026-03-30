@@ -2,7 +2,9 @@ package com.textrefiner.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing // 엔티티의 생성/수정 시간 자동 관리
 @SpringBootApplication
 public class AuthServiceApplication {
 
