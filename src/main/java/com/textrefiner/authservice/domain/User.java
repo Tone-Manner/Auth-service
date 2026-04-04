@@ -12,7 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users") // MySQL의 users 테이블과 매핑
+@Table(name = "users") // MySQL 의 users 테이블과 매핑
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 기본 생성자 접근 제어 (안전성 확보)
 @EntityListeners(AuditingEntityListener.class) // 생성일/수정일 자동 관리를 위한 리스너
@@ -45,5 +45,12 @@ public class User {
         this.email = email;
         this.password = password;
         this.role = role != null ? role : "ROLE_USER"; // 기본값 설정
+    }
+
+    @Column(length = 500)
+    private String refreshToken;
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

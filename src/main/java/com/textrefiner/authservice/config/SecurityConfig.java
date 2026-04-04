@@ -36,7 +36,7 @@ public class SecurityConfig {
                 // 3. API URL별 접근 권한 설정
                 .authorizeHttpRequests(auth -> auth
                         // 회원가입과 로그인 API는 토큰 없이 누구나 접근할 수 있도록 허용(permitAll)
-                        .requestMatchers("/api/v1/auth/signup", "/api/v1/auth/login").permitAll()
+                        .requestMatchers("/api/v1/auth/signup", "/api/v1/auth/login", "/api/v1/auth/refresh").permitAll()
                         // 그 외의 모든 요청은 반드시 인증(토큰)이 필요함
                         .anyRequest().authenticated()
                 )
