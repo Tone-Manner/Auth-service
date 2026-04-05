@@ -17,7 +17,7 @@ public class JwtProvider {
     private final Key key;
     private final long expiration;
 
-    // application.yml에 적어둔 secret과 expiration 값을 가져와서 세팅
+    // application.yml 에 적어둔 secret 과 expiration 값을 가져와서 세팅
     public JwtProvider(
             @Value("${jwt.secret}") String secretKey,
             @Value("${jwt.expiration}") long expiration
@@ -34,7 +34,7 @@ public class JwtProvider {
         Date validity = new Date(now.getTime() + this.expiration);
 
         return Jwts.builder()
-                .setSubject(email) // Payload에 이메일 저장
+                .setSubject(email) // Payload 에 이메일 저장
                 .claim("role", role) // 권한 정보도 같이 저장
                 .setIssuedAt(now) // 토큰 발행 시간
                 .setExpiration(validity) // 토큰 만료 시간
@@ -67,5 +67,17 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public String createRefreshToken(String email) {
+        Date now = new Date();
+        Date validity = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000L); // 7일
+
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(now)
+                .setExpiration(validity)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 }

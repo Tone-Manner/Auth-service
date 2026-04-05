@@ -32,4 +32,16 @@ public class AuthController {
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
+
+    // 토큰 재발급 API (POST /api/v1/auth/refresh)
+    @PostMapping("/refresh")
+    public ResponseEntity<java.util.Map<String, String>> refresh(@RequestBody java.util.Map<String, String> request) {
+        String refreshToken = request.get("refreshToken");
+        String newAccessToken = authService.refreshAccessToken(refreshToken);
+
+        java.util.Map<String, String> response = new java.util.HashMap<>();
+        response.put("accessToken", newAccessToken);
+
+        return ResponseEntity.ok(response);
+    }
 }
