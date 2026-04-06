@@ -9,7 +9,7 @@ spring:
     # MySQL
     url: ${DB_URL:jdbc:mysql://localhost:3306/auth_db?serverTimezone=Asia/Seoul}
     username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:1234}
+    password: ${DB_PASSWORD:1111}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -23,5 +23,5 @@ spring:
 
 # JWT custom setting
 jwt:
-  secret: ${JWT_SECRET:your-default-very-long-secret-key-for-local-test-1234}
+  secret: ${JWT_SECRET:my-super-secret-key-for-local-development-test-12345}
   expiration: 3600000

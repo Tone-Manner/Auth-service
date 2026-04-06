@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -22,8 +23,13 @@ public class JwtProvider {
             @Value("${jwt.secret}") String secretKey,
             @Value("${jwt.expiration}") long expiration
     ) {
-        // Base64로 인코딩된 임시 비밀번호를 해독해서 진짜 암호화 Key 객체로 만드는 과정
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        // 시크릿 키가 Base64 인코딩 여부를 확인 후 처리
+        byte[] keyBytes;
+        try {
+            keyBytes = Decoders.BASE64.decode(secretKey);
+        } catch (Exception e) {
+            keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        }
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.expiration = expiration;
     }
