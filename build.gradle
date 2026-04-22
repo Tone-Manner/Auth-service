@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '4.0.5'
+    id 'org.springframework.boot' version '3.4.5'
     id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -22,6 +22,12 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2024.0.1"
+    }
 }
 
 dependencies {
@@ -52,6 +58,12 @@ dependencies {
 
     // Swagger (SpringDoc OpenAPI)
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.0'
+
+    // eureka
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+
+    // ANTLR4 runtime explicitly required by Hibernate 6.x (Eureka pulls in old antlr 3.x which conflicts)
+    implementation 'org.antlr:antlr4-runtime:4.13.2'
 }
 
 tasks.named('test') {

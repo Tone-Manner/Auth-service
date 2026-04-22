@@ -26,7 +26,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 // 1. CSRF 비활성화 (우리는 세션 대신 JWT를 사용하므로 CSRF 보호가 필요 없음)
                 .csrf(AbstractHttpConfigurer::disable)
