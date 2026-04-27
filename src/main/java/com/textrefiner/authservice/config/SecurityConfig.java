@@ -44,6 +44,7 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                         ).permitAll()
+                        .requestMatchers("/api/v1/auth/info").permitAll()
                         // 그 외의 모든 요청은 반드시 인증(토큰)이 필요함
                         .anyRequest().authenticated()
                 )

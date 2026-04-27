@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/api/v1/auth") // 공통 URL 주소
@@ -43,5 +45,14 @@ public class AuthController {
         response.put("accessToken", newAccessToken);
 
         return ResponseEntity.ok(response);
+    }
+
+    // application.yml에 있는 자기 자신의 포트 번호를 가져옴
+    @Value("${server.port}")
+    private String serverPort;
+
+    @GetMapping("/info")
+    public String getAuthInfo() {
+        return "현재 요청을 처리한 Auth Service의 포트 번호는: " + serverPort + " 입니다!";
     }
 }
